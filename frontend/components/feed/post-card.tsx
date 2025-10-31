@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Heart, MessageCircle, Send, Bookmark } from "lucide-react"
 
 interface PostCardProps {
@@ -17,6 +17,7 @@ export default function PostCard({ committee, logo, image, caption, likes, comme
   const [isLiked, setIsLiked] = useState(false)
   const [isSaved, setIsSaved] = useState(false)
   const [likeCount, setLikeCount] = useState(likes)
+  const commentInputRef = useRef<HTMLInputElement | null>(null)
 
   const handleLike = () => {
     setIsLiked(!isLiked)
@@ -24,7 +25,7 @@ export default function PostCard({ committee, logo, image, caption, likes, comme
   }
 
   return (
-    <div className="bg-card border border-border rounded max-w-2xl mx-auto mb-4">
+    <div className="bg-card border border-border rounded max-w-2xl mx-auto mb-4 shadow-sm">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center gap-3">
@@ -43,7 +44,11 @@ export default function PostCard({ committee, logo, image, caption, likes, comme
 
       {/* Post Image */}
       <div className="relative w-full aspect-square overflow-hidden bg-muted">
-        <img src={image || "/placeholder.svg"} alt={`${committee} post`} className="w-full h-full object-cover" />
+        <img
+          src={image || "/placeholder.svg"}
+          alt={`${committee} post`}
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-[1.01]"
+        />
       </div>
 
       {/* Actions */}
@@ -58,10 +63,34 @@ export default function PostCard({ committee, logo, image, caption, likes, comme
                 <Heart className="w-6 h-6 text-foreground" />
               )}
             </button>
-            <button className="instagram-link">
+            <button
+              className="instagram-link"
+              onClick={() => {
+                commentInputRef.current?.focus()
+              }}
+              aria-label="Comment"
+            >
               <MessageCircle className="w-6 h-6 text-foreground" />
             </button>
-            <button className="instagram-link">
+            <button
+              className="instagram-link"
+              onClick={async () => {
+                const shareData = {
+                  title: `${committee} on comiteex`,
+                  text: caption,
+                  url: typeof window !== "undefined" ? window.location.href : "",
+                }
+                try {
+                  if (navigator.share) {
+                    await navigator.share(shareData)
+                  } else if (navigator.clipboard) {
+                    await navigator.clipboard.writeText(shareData.url)
+                    // no toast util imported; keep silent fallback
+                  }
+                } catch {}
+              }}
+              aria-label="Share"
+            >
               <Send className="w-6 h-6 text-foreground" />
             </button>
           </div>
@@ -94,6 +123,7 @@ export default function PostCard({ committee, logo, image, caption, likes, comme
             type="text"
             placeholder="Add a comment..."
             className="flex-1 text-sm bg-transparent outline-none text-foreground placeholder:text-muted-foreground"
+            ref={commentInputRef}
           />
           <button className="text-accent text-sm font-semibold instagram-link">Post</button>
         </div>

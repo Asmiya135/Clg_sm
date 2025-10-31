@@ -11,12 +11,10 @@ export default function StoryBubble({ name, avatarUrl, hasStory, onClick }: Stor
   return (
     <button
       onClick={onClick}
-      className={`flex flex-col items-center gap-2 instagram-link group ${hasStory ? "ring-2 ring-accent" : ""}`}
+      className={`flex flex-col items-center gap-2 instagram-link group`}
     >
       <div
-        className={`w-16 h-16 rounded-full border-2 flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 ${
-          hasStory ? "border-accent" : "border-border"
-        }`}
+        className={`w-16 h-16 rounded-full border flex items-center justify-center overflow-hidden transition-transform group-hover:scale-105 border-border`}
       >
         <img src={avatarUrl || "/placeholder.svg"} alt={name} className="w-full h-full object-cover" />
       </div>

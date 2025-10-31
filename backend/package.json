@@ -1,0 +1,25 @@
+{
+  "name": "commhub-backend",
+  "private": true,
+  "type": "module",
+  "workspaces": [],
+  "scripts": {
+    "start": "node apps/api-gateway/index.js",
+    "dev": "concurrently \"npm:coordinator\" \"npm:node1\" \"npm:node2\" \"npm:node3\" \"npm:gateway\"",
+    "coordinator": "node apps/coordinator/index.js",
+    "gateway": "cross-env PORT=4000 node apps/api-gateway/index.js",
+    "node1": "cross-env NODE_ID=1 PORT=4101 node apps/data-node/index.js",
+    "node2": "cross-env NODE_ID=2 PORT=4102 node apps/data-node/index.js",
+    "node3": "cross-env NODE_ID=3 PORT=4103 node apps/data-node/index.js"
+  },
+  "dependencies": {
+    "concurrently": "8.2.2",
+    "cross-env": "7.0.3",
+    "express": "4.19.2",
+    "node-fetch": "3.3.2",
+    "pino": "9.4.0"
+  }
+}
+
+
+

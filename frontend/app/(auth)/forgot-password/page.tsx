@@ -22,7 +22,7 @@ export default function ForgotPasswordPage() {
     return (
       <div className="space-y-8 text-center">
         <div className="space-y-2">
-          <h1 className="text-3xl font-light tracking-tight">CommHub</h1>
+          <h1 className="text-3xl font-light tracking-tight">comiteex</h1>
           <p className="text-sm text-muted-foreground">Password Reset</p>
         </div>
 
@@ -41,7 +41,7 @@ export default function ForgotPasswordPage() {
   return (
     <div className="space-y-8">
       <div className="text-center space-y-2">
-        <h1 className="text-3xl font-light tracking-tight">CommHub</h1>
+        <h1 className="text-3xl font-light tracking-tight">comiteex</h1>
         <p className="text-sm text-muted-foreground">Reset your password</p>
       </div>
 

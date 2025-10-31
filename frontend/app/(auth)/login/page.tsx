@@ -21,7 +21,7 @@ export default function LoginPage() {
     <div className="space-y-8">
       {/* Logo/Branding */}
       <div className="text-center space-y-2">
-        <h1 className="text-3xl font-light tracking-tight">CommHub</h1>
+        <h1 className="text-3xl font-light tracking-tight">comiteex</h1>
         <p className="text-sm text-muted-foreground">College Committee Network</p>
       </div>
 
